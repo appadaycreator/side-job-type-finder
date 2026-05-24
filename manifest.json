@@ -1,0 +1,8 @@
+{
+  "name": "Side Job Type Finder",
+  "short_name": "side-job-typ",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#6366f1"
+}
