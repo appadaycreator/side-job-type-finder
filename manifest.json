@@ -1,8 +1,9 @@
 {
   "name": "Side Job Type Finder",
   "short_name": "side-job-typ",
-  "start_url": "/",
+  "start_url": "/side-job-type-finder/",
   "display": "standalone",
   "background_color": "#ffffff",
-  "theme_color": "#6366f1"
+  "theme_color": "#6366f1",
+  "scope": "/side-job-type-finder/"
 }
