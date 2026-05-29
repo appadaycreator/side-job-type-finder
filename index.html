@@ -69,6 +69,10 @@ j=d.createElement(s),dl=l!="dataLayer"?"&l="+l:"";j.async=true;j.src=
             .result-value { font-size: 28px; }
         }
         /* ── サービス固有CSS ── */
+        .quiz-opt { width:100%; padding:12px 14px; margin-bottom:8px; border:2px solid #e5e7eb; border-radius:10px; font-size:14px; cursor:pointer; background:#fff; text-align:left; transition:border-color .15s, background .15s; }
+        .quiz-opt:hover { border-color:#7c3aed; background:#f5f3ff; }
+        .quiz-opt:active { transform:scale(0.99); background:#ede9fe; }
+        .quiz-opt:focus-visible { outline:3px solid #7c3aed; outline-offset:2px; }
 
     
 @media print{
@@ -97,16 +101,16 @@ select,input[type=text],input[type=number],input[type=email],textarea{min-height
     <header class="site-header" role="banner">
         <div class="emoji" aria-hidden="true">💼</div>
         <h1>副業タイプ診断</h1>
-        <p>スキル・空き時間・収入目標から最適な副業タイプ（ライティング・動画・プログラ...</p>
+        <p>スキル・空き時間・収入目標から最適な副業タイプを診断。登録不要・完全無料。</p>
     </header>
 
     <main id="main-content" class="container" role="main" aria-label="副業タイプ診断のメインコンテンツ">
-        <ins class="adsbygoogle" style="display:block;margin:12px 0" data-ad-client="ca-pub-8427583028015858" data-ad-slot="auto" data-ad-format="auto" data-full-width-responsive="true"></ins>
+        <ins class="adsbygoogle" style="display:block;margin:8px 0;min-height:0" data-ad-client="ca-pub-8427583028015858" data-ad-slot="auto" data-ad-format="auto" data-full-width-responsive="true"></ins>
         <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
 
         <div class="card" id="quiz-start">
           <h2 style="font-size:18px;font-weight:700;margin-bottom:12px;">💼 副業タイプ診断</h2>
-          <p style="color:#666;font-size:14px;margin-bottom:8px;">スキル・空き時間・収入目標から最適な副業タイプ（ライティング・動画・プログラ...</p>
+          <p style="color:#666;font-size:14px;margin-bottom:8px;">スキル・空き時間・収入目標から最適な副業タイプ（ライティング・動画・プログラミング等）を診断。</p>
           <ul style="font-size:13px;color:#94a3b8;margin:0 0 16px 16px;"><li>質問数：6問</li><li>所要時間：約1分</li></ul>
           <button class="btn" onclick="startQuiz()">診断スタート →</button>
         </div>
@@ -121,10 +125,33 @@ select,input[type=text],input[type=number],input[type=email],textarea{min-height
           <div id="q-options" class="space-y-2"></div>
         </div>
         <div class="result" id="result">
-          <div class="card">
-            <h3 id="r-title" style="font-size:18px;font-weight:700;margin-bottom:8px;color:#7c3aed;"></h3>
-            <p id="r-desc" style="color:#444;font-size:14px;line-height:1.7;"></p>
-            <button class="btn" style="margin-top:16px;" onclick="location.reload()">もう一度診断</button>
+          <div class="card" id="r-card">
+            <div id="r-badge" style="display:inline-block;padding:4px 12px;border-radius:20px;font-size:12px;font-weight:700;margin-bottom:12px;"></div>
+            <h3 id="r-title" style="font-size:20px;font-weight:700;margin-bottom:10px;color:#7c3aed;line-height:1.4;"></h3>
+            <p id="r-desc" style="color:#444;font-size:14px;line-height:1.8;margin-bottom:16px;"></p>
+
+            <!-- 次のアクション3選 -->
+            <div id="r-steps" style="background:#f8fafc;border-radius:10px;padding:14px;margin-bottom:16px;">
+              <p style="font-size:13px;font-weight:700;color:#374151;margin-bottom:8px;">🚀 まず始める3ステップ</p>
+              <ol id="r-step-list" style="padding-left:18px;font-size:13px;color:#475569;line-height:1.9;"></ol>
+            </div>
+
+            <!-- 適合度スコアバー -->
+            <div id="r-scores" style="margin-bottom:16px;">
+              <p style="font-size:13px;font-weight:700;color:#374151;margin-bottom:8px;">📊 あなたの副業タイプ適合度</p>
+              <div id="r-score-bars"></div>
+            </div>
+
+            <!-- SNSシェアボタン -->
+            <div style="margin-bottom:12px;">
+              <p style="font-size:12px;color:#888;margin-bottom:8px;font-weight:600;">📣 結果をシェアする</p>
+              <div style="display:flex;gap:8px;flex-wrap:wrap;">
+                <a id="r-share-x" href="#" target="_blank" rel="noopener" style="background:#1DA1F2;color:white;padding:8px 16px;border-radius:8px;font-size:13px;text-decoration:none;font-weight:600;min-height:44px;display:inline-flex;align-items:center;">𝕏 シェア</a>
+                <a id="r-share-line" href="#" target="_blank" rel="noopener" style="background:#00B900;color:white;padding:8px 16px;border-radius:8px;font-size:13px;text-decoration:none;font-weight:600;min-height:44px;display:inline-flex;align-items:center;">LINE</a>
+              </div>
+            </div>
+
+            <button class="btn" style="margin-top:4px;" onclick="location.reload()">もう一度診断する</button>
           </div>
         </div>
 
@@ -138,7 +165,7 @@ select,input[type=text],input[type=number],input[type=email],textarea{min-height
             </div>
         </div>
 
-        <ins class="adsbygoogle" style="display:block;margin:12px 0" data-ad-client="ca-pub-8427583028015858" data-ad-slot="auto" data-ad-format="auto" data-full-width-responsive="true"></ins>
+        <ins class="adsbygoogle" style="display:block;margin:8px 0;min-height:0" data-ad-client="ca-pub-8427583028015858" data-ad-slot="auto" data-ad-format="auto" data-full-width-responsive="true"></ins>
         <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
 
         <!-- 使い方セクション -->
@@ -195,7 +222,7 @@ select,input[type=text],input[type=number],input[type=email],textarea{min-height
         </div>
     </main>
 
-    <footer style="text-align:center;padding:20px;color:white;font-size:12px;opacity:0.75;margin-top:8px;">
+    <footer style="text-align:center;padding:20px;color:white;font-size:12px;background:#374151;margin-top:8px;">
         <p><a href="https://appadaycreator.github.io/" style="color:white;">AppADayCreator</a>
         | <a href="privacy-policy.html" style="color:white;">プライバシーポリシー</a>
         | <a href="terms.html" style="color:white;">利用規約</a>
@@ -206,12 +233,42 @@ select,input[type=text],input[type=number],input[type=email],textarea{min-height
 
     <script>
     const RESULTS = [
-      {title:'💻 Web系フリーランス型 — 高単価・在宅完結',desc:'プログラミング・Web制作系の副業が最適です。クラウドワークスやランサーズでLP制作・WordPressカスタマイズなどから始め、月5〜10万円も十分可能。GitHubポートフォリオを整備して単価を上げましょう。在宅・時間自由で継続しやすいのも魅力です。'},
-      {title:'✍️ ライティング・コンテンツ型 — 初心者でも始めやすい',desc:'ライティング・ブログ・SEOコンテンツ制作がおすすめ。クラウドワークスでは文字単価0.5〜3円からスタートでき、専門知識を活かせば高単価化も可能。Noteや自分のブログで読者を増やしながら、ASP案件・Kindle出版へと展開するのが理想的なロードマップです。'},
-      {title:'🎨 クリエイティブ型 — デザイン・動画・イラスト',desc:'デザイン・動画編集・イラストの副業がぴったりです。CanvaやAdobe製品を活用してSNS素材・YouTube動画編集の案件から始めましょう。ストックサイト（PIXTA・Shutterstockなど）への素材販売は寝ている間も収益を生む「不労所得型」として人気です。'},
-      {title:'🛒 物販・ネットショップ型 — 在庫リスクはあるが利益率高め',desc:'メルカリ転売・Amazon FBA・ハンドメイド販売がおすすめ。不用品整理から始めて仕入れ→販売のサイクルを学びましょう。Minne・Creemaでのハンドメイド販売は趣味を収益化できるため継続しやすいのが特徴。月3〜10万円の目標達成者も多数います。'},
-      {title:'📱 SNS・アフィリエイト型 — 継続が鍵のストック型収入',desc:'InstagramやYouTubeなどSNS運用・アフィリエイトブログが向いています。始めの3〜6ヶ月は収益ゼロが普通ですが、一度軌道に乗ると労働時間に比例しない収益を生みます。特定の趣味・専門分野での発信が成功の近道。A8.netやもしもアフィリエイトへの登録からスタートしましょう。'},
-      {title:'🎓 スキルシェア・教える型 — ストアカ・ビザスクで活躍',desc:'オンライン講師・コーチング・コンサルが最適です。ストアカ・Udemy・ビザスクなどのプラットフォームで自分の専門知識を教えるビジネスモデル。初回は無料モニターを集めて実績を作り、1時間5,000〜15,000円の単価を目指しましょう。本業の知識が直接収益になる最も効率的な副業形態です。'}
+      {
+        title:'💻 Web系フリーランス型 — 高単価・在宅完結',
+        desc:'プログラミング・Web制作系の副業が最適です。クラウドワークスやランサーズでLP制作・WordPressカスタマイズなどから始め、月5〜10万円も十分可能。GitHubポートフォリオを整備して単価を上げましょう。在宅・時間自由で継続しやすいのも魅力です。',
+        color:'#2563eb', badge:'💻 Web系フリーランス型',
+        steps:['クラウドワークスに無料登録してプロフィールを整備する','LP制作・WordPressカスタマイズ案件を1件受注してポートフォリオを作る','GitHubにコードを公開して単価を月1万円ずつ上げていく']
+      },
+      {
+        title:'✍️ ライティング・コンテンツ型 — 初心者でも始めやすい',
+        desc:'ライティング・ブログ・SEOコンテンツ制作がおすすめ。クラウドワークスでは文字単価0.5〜3円からスタートでき、専門知識を活かせば高単価化も可能。Noteや自分のブログで読者を増やしながら、ASP案件・Kindle出版へと展開するのが理想的なロードマップです。',
+        color:'#16a34a', badge:'✍️ ライティング・コンテンツ型',
+        steps:['クラウドワークスでライティング案件に応募し最初の実績を作る','A8.netに登録してアフィリエイトブログを立ち上げる','専門分野の記事を週1本ペースで書いてSEO流入を狙う']
+      },
+      {
+        title:'🎨 クリエイティブ型 — デザイン・動画・イラスト',
+        desc:'デザイン・動画編集・イラストの副業がぴったりです。CanvaやAdobe製品を活用してSNS素材・YouTube動画編集の案件から始めましょう。ストックサイト（PIXTA・Shutterstockなど）への素材販売は寝ている間も収益を生む「不労所得型」として人気です。',
+        color:'#ea580c', badge:'🎨 クリエイティブ型',
+        steps:['ランサーズでSNSバナー・動画編集の案件を1件受注する','PIXTAに作品を10点以上登録してストック収益を始める','ポートフォリオサイトをBehanceまたはnoteで公開する']
+      },
+      {
+        title:'🛒 物販・ネットショップ型 — 在庫リスクはあるが利益率高め',
+        desc:'メルカリ転売・Amazon FBA・ハンドメイド販売がおすすめ。不用品整理から始めて仕入れ→販売のサイクルを学びましょう。Minne・Creemaでのハンドメイド販売は趣味を収益化できるため継続しやすいのが特徴。月3〜10万円の目標達成者も多数います。',
+        color:'#dc2626', badge:'🛒 物販・ネットショップ型',
+        steps:['自宅の不用品をメルカリに10点出品して売買のコツを掴む','Minne/Creemaにショップを開設してハンドメイド品を販売する','仕入れ→転売サイクルを月5回繰り返して利益率を記録する']
+      },
+      {
+        title:'📱 SNS・アフィリエイト型 — 継続が鍵のストック型収入',
+        desc:'InstagramやYouTubeなどSNS運用・アフィリエイトブログが向いています。始めの3〜6ヶ月は収益ゼロが普通ですが、一度軌道に乗ると労働時間に比例しない収益を生みます。特定の趣味・専門分野での発信が成功の近道。A8.netやもしもアフィリエイトへの登録からスタートしましょう。',
+        color:'#7c3aed', badge:'📱 SNS・アフィリエイト型',
+        steps:['発信するテーマを1つ決めてInstagramまたはブログを開設する','A8.netともしもアフィリエイトに登録して広告を貼る','週3投稿を3ヶ月継続してフォロワー・流入を積み上げる']
+      },
+      {
+        title:'🎓 スキルシェア・教える型 — ストアカ・ビザスクで活躍',
+        desc:'オンライン講師・コーチング・コンサルが最適です。ストアカ・Udemy・ビザスクなどのプラットフォームで自分の専門知識を教えるビジネスモデル。初回は無料モニターを集めて実績を作り、1時間5,000〜15,000円の単価を目指しましょう。本業の知識が直接収益になる最も効率的な副業形態です。',
+        color:'#0891b2', badge:'🎓 スキルシェア・教える型',
+        steps:['ストアカに講師登録して得意分野の講座を1つ作成する','最初の3名を無料モニターとして募集して実績・口コミを集める','ビザスクにも登録してスポットコンサル1時間1万円以上を目指す']
+      }
     ];
     const QUESTIONS = [
       {text:'Q1. 現在の本業のスキルは？',opts:['IT・プログラミング・エンジニア系','文章を書く・編集・ライティング','デザイン・動画・クリエイティブ','その他・特定スキルなし']},
@@ -221,7 +278,7 @@ select,input[type=text],input[type=number],input[type=email],textarea{min-height
       {text:'Q5. 人と関わることは好きですか？',opts:['対面・会話が得意で好き','オンラインコミュニケーションは得意','どちらかというと一人作業が好き','なるべく人と関わりたくない']},
       {text:'Q6. スマートフォンやPCの扱いは？',opts:['得意・日常的に使いこなす','ある程度は使える','あまり得意ではない','苦手']}
     ];
-    function getResult(answers) {
+    function calcScores(answers) {
       const scores = [0,0,0,0,0,0];
       const a = answers.map(x => x.idx);
       if(a[0]===0) { scores[0]+=3; }
@@ -244,11 +301,10 @@ select,input[type=text],input[type=number],input[type=email],textarea{min-height
       if(a[4]===1) { scores[0]+=1; scores[5]+=1; }
       if(a[4]===2) { scores[1]+=1; scores[2]+=1; }
       if(a[4]===3) { scores[2]+=2; scores[4]+=1; }
-      const best = scores.indexOf(Math.max(...scores));
-      return RESULTS[best];
+      return scores;
     }
     // ★以下変更不要★
-    const BTN='#7c3aed'; let cur=0; const ans=[];
+    let cur=0; const ans=[];
     document.addEventListener('DOMContentLoaded',()=>{ document.getElementById('q-total').textContent=QUESTIONS.length; });
     function startQuiz(){ cur=0;ans.length=0; document.getElementById('quiz-start').style.display='none'; document.getElementById('quiz-area').style.display='block'; document.getElementById('result').classList.remove('show'); renderQ(); }
     function renderQ(){
@@ -256,15 +312,52 @@ select,input[type=text],input[type=number],input[type=email],textarea{min-height
       document.getElementById('q-num').textContent=cur+1;
       document.getElementById('q-bar').style.width=((cur+1)/QUESTIONS.length*100)+'%';
       document.getElementById('q-text').textContent=q.text;
-      document.getElementById('q-options').innerHTML=q.opts.map((o,i)=>`<button onclick="answer(${i})" style="width:100%;padding:12px;margin-bottom:8px;border:2px solid #e5e7eb;border-radius:10px;font-size:14px;cursor:pointer;background:#fff;text-align:left;">${o}</button>`).join('');
+      document.getElementById('q-options').innerHTML=q.opts.map((o,i)=>`<button class="quiz-opt" onclick="answer(${i})">${o}</button>`).join('');
     }
     function answer(idx){ ans.push({idx}); cur++; if(cur>=QUESTIONS.length) showResult(); else renderQ(); }
     function showResult(){
       document.getElementById('quiz-area').style.display='none';
-      const r=getResult(ans);
-      document.getElementById('r-title').textContent=r.title;
-      document.getElementById('r-desc').textContent=r.desc;
+      const scores = calcScores(ans);
+      const best = scores.indexOf(Math.max(...scores));
+      const r = RESULTS[best];
+      const maxScore = Math.max(...scores);
+
+      // バッジ・タイトル・説明
+      const badge = document.getElementById('r-badge');
+      badge.textContent = r.badge;
+      badge.style.background = r.color + '20';
+      badge.style.color = r.color;
+      document.getElementById('r-title').textContent = r.title;
+      document.getElementById('r-title').style.color = r.color;
+      document.getElementById('r-desc').textContent = r.desc;
+
+      // 次のアクション3ステップ
+      document.getElementById('r-step-list').innerHTML = r.steps.map(s=>`<li>${s}</li>`).join('');
+
+      // 適合度スコアバー
+      const barContainer = document.getElementById('r-score-bars');
+      barContainer.innerHTML = RESULTS.map((res, i) => {
+        const pct = maxScore > 0 ? Math.round(scores[i] / maxScore * 100) : 0;
+        const isBest = i === best;
+        return `<div style="margin-bottom:8px;">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:3px;">
+            <span style="font-size:12px;color:${isBest?res.color:'#6b7280'};font-weight:${isBest?'700':'400'}">${res.badge}</span>
+            <span style="font-size:12px;color:${isBest?res.color:'#9ca3af'};font-weight:${isBest?'700':'400'}">${pct}%</span>
+          </div>
+          <div style="height:6px;background:#f1f5f9;border-radius:3px;overflow:hidden;">
+            <div style="height:100%;width:${pct}%;background:${isBest?res.color:'#cbd5e1'};border-radius:3px;transition:width .6s ease;"></div>
+          </div>
+        </div>`;
+      }).join('');
+
+      // SNSシェアボタン
+      const shareText = encodeURIComponent(`副業タイプ診断で「${r.badge}」と診断されました！\n#副業タイプ診断 #副業`);
+      const shareUrl = encodeURIComponent('https://appadaycreator.com/side-job-type-finder/');
+      document.getElementById('r-share-x').href = `https://twitter.com/intent/tweet?text=${shareText}&url=${shareUrl}`;
+      document.getElementById('r-share-line').href = `https://line.me/R/msg/text/?${shareText}%0A${shareUrl}`;
+
       document.getElementById('result').classList.add('show');
+      setTimeout(()=>{ document.getElementById('result').scrollIntoView({behavior:'smooth',block:'start'}); }, 100);
     }
     </script>
 <script id="ux-behavior">
@@ -272,7 +365,7 @@ select,input[type=text],input[type=number],input[type=email],textarea{min-height
 'use strict';
 function init(){
   // ローディング状態
-  document.querySelectorAll('button:not([type=reset]):not([data-ux]),input[type=submit]').forEach(function(b){
+  document.querySelectorAll('button:not([type=reset]):not([data-ux]):not(.quiz-opt),input[type=submit]').forEach(function(b){
     b.dataset.ux='1';
     var orig=b.tagName==='BUTTON'?b.textContent:(b.value||'実行');
     b.addEventListener('click',function(){
